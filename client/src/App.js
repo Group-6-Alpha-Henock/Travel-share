@@ -104,9 +104,9 @@ const toggleUpdate = (travel) => {
 const updateTravel =async(e)=> {
   const {title, content} = updateForm;
   //edit button functionality 
-  // e.preventDefault();
+   e.preventDefault(e);
   try {
-    const res= await axios.put(`http://localhost:8000/travel/${updateForm._id}`, updateForm);
+    const res= await axios.put(`http://localhost:8000/travel/${updateForm._id}`, {title, content});
     // Fetch the updated data after updating the story
     fetchTravels();
     console.log(res)
