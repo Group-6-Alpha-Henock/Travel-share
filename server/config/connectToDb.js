@@ -14,4 +14,6 @@ async function connectToDb() {
   }
 }
 
+mongoose.set("strictQuery", true);
+
 module.exports = connectToDb;
