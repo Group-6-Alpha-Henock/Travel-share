@@ -8,6 +8,9 @@ const TravelSchema = new Schema({
   content: {
     type: String
   },
+  cover:  {
+    type: String
+  },
 });
 
 const TravelModel = model('TravelModel', TravelSchema);
