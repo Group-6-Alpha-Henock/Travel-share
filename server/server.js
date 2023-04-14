@@ -39,7 +39,7 @@ app.get("/travel/:id", async (req, res) => {
   // Get id off the url
   const travelId = req.params.id;
 
-  // Find the note using that id
+  // Find the id using that id
   const travel = await TravelModel.findById(travelId);
 
   // Respond with the travel
