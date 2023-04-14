@@ -21,6 +21,8 @@ connectToDb();
 
 // Routing
 
+
+
 //////////////////////////////////////////////////////////
 app.get("/travel", async(req,res)=> {
   

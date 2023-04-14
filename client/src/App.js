@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import './App.css';
 import axios from "axios";
+import Navbar from "./comps/Navbar";
+
+
 
 function App() {
   // Create a state to store data from server with default value of null
@@ -19,7 +22,7 @@ function App() {
 
       // Set the data in the state
       setTravels(res.data.travel);
-
+      // console.log(res) to see the fetched data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -40,7 +43,7 @@ function App() {
       [name]: value,
     });
   };
-
+///////////////////////////////////////////////////////create//////////
   // Function to create a new travel story
   const createTravels = async (e) => {
     e.preventDefault();
@@ -58,7 +61,7 @@ function App() {
     }
   };
 
-
+///////////////////////////////////////////////////////delete///////////
 // deleting the created notes
 const deleteTravel = async(_id) => {
   //this is to delete the travels
@@ -73,7 +76,7 @@ const deleteTravel = async(_id) => {
     setTravels(newTravel);
 };
 
-
+///////////////////////////////////////////////////////////update///////////////
   // State for the updating the travel data
   const [updateForm, setUpdateForm] = useState({
     _id : null,
@@ -95,12 +98,13 @@ const deleteTravel = async(_id) => {
 // editing the created travel data
 
 
-const toggleUpdate = (travel) => {
-  //this is to delete the travels
-    
+const toBeUpdated = (travel) => {
+      
   setUpdateForm({title: travel.title, content: travel.content, _id: travel._id});
 
 };
+
+
 const updateTravel =async(e)=> {
   const {title, content} = updateForm;
   //edit button functionality 
@@ -118,27 +122,37 @@ const updateTravel =async(e)=> {
 };
 
 
+
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Welcome to my travel Share</h1>
+        <Navbar></Navbar>
       </header>
       <div>
-        <h2>Stories:</h2>
-        {travels && 
-          travels.map((travel) => (
-            <div key={travel._id}>
+    
+        
+     
+       
+      <h2>Stories:</h2>
+       {travels && 
+         travels.map((travel) => (
+        
+            <div key={travel._id} >
               <h3>{travel.title}</h3>
               <h4>{travel.content}</h4>
-              <button onClick={() => toggleUpdate(travel)}>
+              <button onClick={() => toBeUpdated(travel)}>
                 Edit
               </button>
               <button onClick={() => deleteTravel(travel._id)}>
                 Delete
               </button>
             </div>
+       
           ))
         }
+      
       </div>
 
         {updateForm._id &&(
@@ -158,7 +172,7 @@ const updateTravel =async(e)=> {
         {!updateForm._id &&(
           <div>
           
-            <h1>Create a story here</h1>
+            <h1>Share your travel story here:</h1>
               <form onSubmit={createTravels}>
                   <input  onChange={updateStoryForm}
                           name="title" 
