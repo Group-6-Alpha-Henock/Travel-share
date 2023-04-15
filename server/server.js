@@ -8,7 +8,7 @@ const express = require("express");
 const cors = require("cors");
 const connectToDb = require("./config/connectToDb");
 const TravelModel = require("./models/travel_model");
-
+const User = require("./models/SignUp_model");
 // Create an express app
 const app = express();
 
@@ -21,23 +21,17 @@ connectToDb();
 
 // Routing
 
-
-
 //////////////////////////////////////////////////////////
-app.get("/travel", async(req,res)=> {
-  
-    // Find the travels
-    const travel = await TravelModel.find();
-  
-    // Respond with them
-    res.json({ travel });
-  
-});
+app.get("/travel", async (req, res) => {
+  // Find the travels
+  const travel = await TravelModel.find();
 
+  // Respond with them
+  res.json({ travel });
+});
 
 ///////////////////////////////////////////////////////////////
 app.get("/travel/:id", async (req, res) => {
-  
   // Get id off the url
   const travelId = req.params.id;
 
@@ -48,10 +42,7 @@ app.get("/travel/:id", async (req, res) => {
   res.json({ travel });
 });
 
-
-
 ///////////////////////////////////////////////////////////////
-
 
 app.post("/travel", async (req, res) => {
   // Get the sent in data off request body
@@ -67,10 +58,7 @@ app.post("/travel", async (req, res) => {
   res.json({ travel });
 });
 
-
-
 ///////////////////////////////////////////////////////////////////
-
 
 app.put("/travel/:id", async (req, res) => {
   // Get the id off the url
@@ -92,12 +80,7 @@ app.put("/travel/:id", async (req, res) => {
   res.json({ travel });
 });
 
-
-
-
-
 //////////////////////////////////////////////////////////////////////
-
 
 app.delete("/travel/:id", async (req, res) => {
   // get id off url
@@ -110,7 +93,22 @@ app.delete("/travel/:id", async (req, res) => {
   res.json({ msg: "Record deleted" });
 });
 
-
-
+//Login and signup form routing
+//1 post api
+app.post("/register", async (req, res) => {
+  const { fname, lname, email, password } = req.body;
+  try {
+    await User.create({
+      fname,
+      lname,
+      email,
+      password,
+    });
+    res.send({ status: "ok" });
+    console.log("user created sucessfully");
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
 
 app.listen(process.env.PORT);

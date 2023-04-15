@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import './App.css';
+import "./App.css";
 import axios from "axios";
 import Navbar from "./comps/Navbar";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-
+import Login from "./comps/Login";
+import SignUp from "./comps/Signup";
 
 function App() {
   // Create a state to store data from server with default value of null
@@ -30,8 +33,8 @@ function App() {
 
   // State for the form data
   const [storyForm, setStoryForm] = useState({
-    title: '',
-    content: '',
+    title: "",
+    content: "",
   });
 
   // Function to update the storyForm
@@ -43,7 +46,7 @@ function App() {
       [name]: value,
     });
   };
-///////////////////////////////////////////////////////create//////////
+  ///////////////////////////////////////////////////////create//////////
   // Function to create a new travel story
   const createTravels = async (e) => {
     e.preventDefault();
@@ -53,140 +56,171 @@ function App() {
       // Fetch the updated data after creating a new story
       fetchTravels();
       // Reset the form data to empty after clicking on submit
-      setStoryForm({ title: '', content: '' });
-      
-      
+      setStoryForm({ title: "", content: "" });
     } catch (error) {
       console.error("Error creating travel story:", error);
     }
   };
 
-///////////////////////////////////////////////////////delete///////////
-// deleting the created notes
-const deleteTravel = async(_id) => {
-  //this is to delete the travels
-    const res= await axios.delete('http://localhost:8000/travel/'+_id);
+  ///////////////////////////////////////////////////////delete///////////
+  // deleting the created notes
+  const deleteTravel = async (_id) => {
+    //this is to delete the travels
+    const res = await axios.delete("http://localhost:8000/travel/" + _id);
     console.log(res);
-    
+
     //update the state and remove the one that is created
     // the ... is the duplicate of the travels
     const newTravel = [...travels].filter((travels) => {
-      return travels._id !==_id
+      return travels._id !== _id;
     });
     setTravels(newTravel);
-};
+  };
 
-///////////////////////////////////////////////////////////update///////////////
+  ///////////////////////////////////////////////////////////update///////////////
   // State for the updating the travel data
   const [updateForm, setUpdateForm] = useState({
-    _id : null,
-    title: '',
-    content: '',
+    _id: null,
+    title: "",
+    content: "",
   });
 
   // change function for updateForm which will handle changes to the travel
 
-  const handleUpdateForm =  (e) => {
-    const {name, value} = e.target;
+  const handleUpdateForm = (e) => {
+    const { name, value } = e.target;
 
     setUpdateForm({
       ...updateForm,
-      [name]: value
+      [name]: value,
     });
   };
 
-// editing the created travel data
+  // editing the created travel data
 
+  const toBeUpdated = (travel) => {
+    setUpdateForm({
+      title: travel.title,
+      content: travel.content,
+      _id: travel._id,
+    });
+  };
 
-const toBeUpdated = (travel) => {
-      
-  setUpdateForm({title: travel.title, content: travel.content, _id: travel._id});
+  const updateTravel = async (e) => {
+    const { title, content } = updateForm;
+    //edit button functionality
+    e.preventDefault(e);
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/travel/${updateForm._id}`,
+        { title, content }
+      );
+      // Fetch the updated data after updating the story
+      fetchTravels();
+      console.log(res);
+      // Reset the updateForm data to empty after clicking on submit
+      setUpdateForm({ title: "", content: "" });
+    } catch (error) {
+      console.error("Error updating travel story:", error);
+    }
+  };
 
-};
-
-
-const updateTravel =async(e)=> {
-  const {title, content} = updateForm;
-  //edit button functionality 
-   e.preventDefault(e);
-  try {
-    const res= await axios.put(`http://localhost:8000/travel/${updateForm._id}`, {title, content});
-    // Fetch the updated data after updating the story
-    fetchTravels();
-    console.log(res)
-    // Reset the updateForm data to empty after clicking on submit
-    setUpdateForm({title: '', content: '' });
-  } catch (error) {
-    console.error('Error updating travel story:', error);
-  }
-};
-
-
-
-
+  ////////////////////////////
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Navbar></Navbar>
-      </header>
-      <div>
-    
-        
-     
-       
-      <h2>Stories:</h2>
-       {travels && 
-         travels.map((travel) => (
-        
-            <div key={travel._id} >
-              <h3>{travel.title}</h3>
-              <h4>{travel.content}</h4>
-              <button onClick={() => toBeUpdated(travel)}>
-                Edit
-              </button>
-              <button onClick={() => deleteTravel(travel._id)}>
-                Delete
-              </button>
+    <>
+      <div className="App">
+        {/* <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+          <div className="container">
+            <Link className="navbar-brand" to={"/sign-in"}>
+              positronX
+            </Link>
+            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/sign-in"}>
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/sign-up"}>
+                    Sign up
+                  </Link>
+                </li>
+              </ul>
             </div>
-       
-          ))
-        }
-      
+          </div>
+        </nav> */}
+
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+            <Routes>
+              <Route exact path="*" element={<SignUp />} />
+              <Route path="/sign-in" element={<Login />} />
+              <Route path="/sign-up" element={<SignUp />} />
+            </Routes>
+          </div>
+        </div>
       </div>
 
-        {updateForm._id &&(
+      <div className="App">
+        <header className="App-header">
+          <Navbar></Navbar>
+        </header>
         <div>
-        <form onClick={updateTravel}>
-          <input  onChange={handleUpdateForm}
-                  name="title" 
-                  value={updateForm.title} />
-          <textarea onChange={handleUpdateForm}
-                    name="content" 
-                    value={updateForm.content}/>
+          <h1>please login or signup</h1>
 
-          <button type="submit" > Update </button>
-        </form>
-        </div> 
-        )}
-        {!updateForm._id &&(
+          <h2>Stories:</h2>
+          {travels &&
+            travels.map((travel) => (
+              <div key={travel._id}>
+                <h3>{travel.title}</h3>
+                <h4>{travel.content}</h4>
+                <button onClick={() => toBeUpdated(travel)}>Edit</button>
+                <button onClick={() => deleteTravel(travel._id)}>Delete</button>
+              </div>
+            ))}
+        </div>
+
+        {updateForm._id && (
           <div>
-          
-            <h1>Share your travel story here:</h1>
-              <form onSubmit={createTravels}>
-                  <input  onChange={updateStoryForm}
-                          name="title" 
-                          value={storyForm.title} />
-                  <textarea onChange={updateStoryForm}
-                            name="content" 
-                            value={storyForm.content}/>
+            <form onClick={updateTravel}>
+              <input
+                onChange={handleUpdateForm}
+                name="title"
+                value={updateForm.title}
+              />
+              <textarea
+                onChange={handleUpdateForm}
+                name="content"
+                value={updateForm.content}
+              />
 
-                  <button type="submit" > Post a Story </button>
-              </form>
+              <button type="submit"> Update </button>
+            </form>
           </div>
         )}
+        {!updateForm._id && (
+          <div>
+            <h1>Share your travel story here:</h1>
+            <form onSubmit={createTravels}>
+              <input
+                onChange={updateStoryForm}
+                name="title"
+                value={storyForm.title}
+              />
+              <textarea
+                onChange={updateStoryForm}
+                name="content"
+                value={storyForm.content}
+              />
 
-    </div>
+              <button type="submit"> Post a Story </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
