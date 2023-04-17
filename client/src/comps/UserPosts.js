@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import Navbar from "../comps/Navbar";

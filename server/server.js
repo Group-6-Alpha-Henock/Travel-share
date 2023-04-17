@@ -127,7 +127,7 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await UserDetailModel.findOne({ email });
   if (!user) {
-     alert( "no account found registered to this email");
+    return res.json({ error: "no account found registered to this email" });
   }
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({}, JWT_TOKEN);
