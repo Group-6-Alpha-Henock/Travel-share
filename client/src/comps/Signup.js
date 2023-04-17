@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Navbar from "./Navbar";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -26,6 +27,7 @@ const SignUp = () => {
       })
       .catch((error) => {
         // Log error to console if request fails
+        alert('email address already in use')
         console.error("Error registering user:", error);
       });
   };
@@ -38,6 +40,8 @@ const SignUp = () => {
 
   // Return the form with input fields for first name, last name, email, and password
   return (
+    <div>
+    <Navbar></Navbar>
     <form onSubmit={handleSubmit}>
       <h3>Sign Up</h3>
 
@@ -98,6 +102,8 @@ const SignUp = () => {
         Already registered <a href="/sign-in">sign in?</a>
       </p>
     </form>
+    </div>
+
   );
 };
 

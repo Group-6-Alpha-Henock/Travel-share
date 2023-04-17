@@ -108,23 +108,18 @@ app.post("/register", async (req, res) => {
   try {
     const alreadyUser = await UserDetailModel.findOne({ email });
     if (alreadyUser) {
-      return res.send({
-        error: "this email is already registered to an account",
-      });
+      return res.status(409).json({ status: "error", message: "This email is already registered to an account" });
+    } else {
+      // Logic for creating a new user
+      res.status(200).json({ status: "ok", message: "User created successfully" })
+      
     }
-
-    await UserDetailModel.create({
-      fname,
-      lname,
-      email,
-      password: bcryptPassword,
-    });
-    res.send({ status: "ok" });
-    console.log("user created sucessfully");
   } catch (error) {
-    res.send({ status: "error" });
+    console.error("Error", error);
+    res.status(500).json({ status: "error", message: "User information error" });
   }
 });
+
 
 app.listen(process.env.PORT);
 
@@ -132,7 +127,7 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await UserDetailModel.findOne({ email });
   if (!user) {
-    return res.json({ error: "no account found registered to this email" });
+     alert( "no account found registered to this email");
   }
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({}, JWT_TOKEN);

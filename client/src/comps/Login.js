@@ -1,43 +1,48 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import Navbar from "./Navbar";
+
 const Login = () => {
   // Initializing state variables using the useState hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     // Preventing the default form submission behavior
     e.preventDefault();
     // Logging the current values of email and password to the console
     console.log(email, password);
 
     // Making a POST request to the login endpoint with email and password data
-    axios
-      .post("http://localhost:8000/login", {
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
         email,
         password,
-      })
-      .then((res) => {
-        // If the response status is "ok"
-        if (res.data.status === "ok") {
-          // Display an alert indicating successful login
-          alert("User logged in successfully!");
-          // Store the user's authentication token in local storage
-          window.localStorage.setItem("token", res.data.data);
-          // Redirect the user to the "/userPosts" page
-          window.location.href = "/userPosts";
-        }
-      })
-      .catch((error) => {
-        // If the request fails for any reason, log the error to the console
-        console.error("Error:", error);
       });
+    
+      // If the response status is "ok"
+      if (response.data.status === "ok") {
+        // Display an alert indicating successful login
+        alert("User logged in successfully!");
+        // Store the user's authentication token in local storage
+        window.localStorage.setItem("token", response.data.data);
+        // Redirect the user to the "/userPosts" page
+        window.location.href = "/userPosts";
+      }
+    } catch (error) {
+      // If the request fails for any reason, log the error to the console
+      console.error("Error", error);
+      alert("Email and password doesn't match!");
+    }
+    
   };
 
   // Rendering the login form
   return (
+    <div>
+      <Navbar></Navbar>
     <form onSubmit={handleSubmit}>
       <h3>Sign In</h3>
 
@@ -83,6 +88,8 @@ const Login = () => {
         Forgot <a href="/">password?</a>
       </p>
     </form>
+    </div>
+
   );
 };
 

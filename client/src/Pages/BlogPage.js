@@ -4,7 +4,7 @@ function BlogPage() {
   return (
     <div>
         <Navbar></Navbar>
-        <div>all blog here</div>
+        <div>Welcome </div>
     </div>
   )
 }

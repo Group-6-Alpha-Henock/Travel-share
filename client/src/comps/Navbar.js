@@ -5,14 +5,20 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbarLogo">
-        <Link to="/">Travel Share</Link>
+        <Link to='/userPosts' >Travel Share</Link>
       </div>
       <ul className="navbarMenu">
         <li>
-          <Link to="/blogs">Blogs</Link>
+          <Link to="/blogs">User</Link>
         </li>
         <li>
           <Link to="/about">About Us</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/signup">Signup</Link>
         </li>
       </ul>
     </div>
