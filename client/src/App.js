@@ -1,16 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-
-// import necessary components from react-router-dom
-import { BrowserRouter as Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./comps/Navbar";
 import Login from "./comps/Login";
 import SignUp from "./comps/Signup";
 import UserPosts from "./comps/UserPosts";
 
 function App() {
-  
   return (
     <div className="auth-wrapper">
       <div className="auth-inner">
@@ -18,6 +14,7 @@ function App() {
           <Navbar />
         </header>
         <Routes>
+        
           <Route path="/userPosts" element={<UserPosts />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />

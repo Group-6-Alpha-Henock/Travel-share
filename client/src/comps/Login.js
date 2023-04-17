@@ -13,13 +13,17 @@ const Login = () => {
     // Preventing the default form submission behavior
     e.preventDefault();
     // Logging the current values of email and password to the console
-    console.log(email, password);
+    
 
     // Making a POST request to the login endpoint with email and password data
     try {
       const response = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
+       
+      email,
+  password
+},{method: 'POST',
+        body: JSON.stringify({email, password}),
+        headers: { 'Content-Type': 'application/json'},
       });
     
       // If the response status is "ok"
