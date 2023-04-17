@@ -1,6 +1,7 @@
 import { useState, useEffect, Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
+import Navbar from "../comps/Navbar";
 
 function UserPosts() {
   // Create a state to store data from server with default value of null
@@ -123,6 +124,7 @@ function UserPosts() {
 
   return (
     <div className="App   container">
+      <Navbar></Navbar>
       <div>
         <h2 className=" text-primary">Stories:</h2>
         {travels &&

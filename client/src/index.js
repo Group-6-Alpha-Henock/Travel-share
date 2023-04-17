@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import BlogPage from './Pages/BlogPage';
 import About from './Pages/About';
+import Login from './comps/Login';
+import Signup from './comps/Signup';
+import UserPosts from './comps/UserPosts';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -21,6 +24,18 @@ import {
      {
         path: "/about",
         element:<About/>,
+      },
+      {
+        path: "/login",
+        element:<Login/>,
+      },
+      {
+        path: "/signup",
+        element:<Signup/>,
+      },
+      {
+        path: "/userPosts",
+        element:<UserPosts/>,
       },
   ]);
 
