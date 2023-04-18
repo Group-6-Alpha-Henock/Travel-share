@@ -19,9 +19,9 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:8000/login", {
        
-      email,
-  password
-},{method: 'POST',
+        email,
+        password
+      },{method: 'POST',
         body: JSON.stringify({email, password}),
         headers: { 'Content-Type': 'application/json'},
       });
@@ -50,7 +50,7 @@ const Login = () => {
     <form onSubmit={handleSubmit}>
       <h3>Sign In</h3>
 
-      <div className="mb-3">
+      <div className="mb-3 w-25 p-3">
         <label>Email address</label>
         <input
           type="email"
@@ -60,7 +60,7 @@ const Login = () => {
         />
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 w-25 p-3">
         <label>Password</label>
         <input
           type="password"
@@ -71,7 +71,7 @@ const Login = () => {
       </div>
 
       <div className="mb-3">
-        <div className="custom-control custom-checkbox">
+        <div className="custom-control custom-checkbox w-25 p-3">
           <input
             type="checkbox"
             className="custom-control-input"
@@ -83,12 +83,12 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="d-grid">
+      <div className="d-grid w-25 p-3">
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </div>
-      <p className="forgot-password text-right">
+      <p className="forgot-password text-right w-25 p-3">
         Forgot <a href="/">password?</a>
       </p>
     </form>
