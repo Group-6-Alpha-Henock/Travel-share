@@ -126,20 +126,24 @@ function UserPosts() {
     <div className="App   container">
       <Navbar></Navbar>
       <div>
-        <h2 className=" text-primary">Stories:</h2>
+        <h2 className="text-primary" >Stories:</h2>
         {travels &&
           travels.map((travel) => (
-            <div key={travel._id}>
-              <h3>{travel.title}</h3>
+            <div  className="text-black bg-secondary mb-3" key={travel._id}>
+              <h2>{travel.title}</h2>
+              
+                <img src="" alt="..." className="img-thumbnail" />
+              
               <h4>{travel.content}</h4>
               <button
-                className="text-bg-success border-success p-1"
+                type="button" className="btn btn-warning  m-3 p-3"
+               
                 onClick={() => toBeUpdated(travel)}
               >
                 Edit
               </button>
               <button
-                className="text-bg-danger p-1 rounded ms-3 border-danger"
+                type="button" className="btn btn-danger  m-3 p-3"
                 onClick={() => deleteTravel(travel._id)}
               >
                 Delete
@@ -152,18 +156,21 @@ function UserPosts() {
         <div>
           <form onClick={updateTravel}>
             <input
+            className="m-1 p-3 input-group input-group-lg"
               onChange={handleUpdateForm}
               name="title"
               value={updateForm.title}
             />
             <textarea
-              className="border-primary mx"
+              className="m-1 p-5 input-group-text input-group input-group-lg"
               onChange={handleUpdateForm}
               name="content"
               value={updateForm.content}
             />
 
-            <button type="submit"> Update </button>
+            <button type="submit"
+            className="rounded border-primary text-bg-primary p-3 m-2"
+            > Update </button>
           </form>
         </div>
       )}
@@ -171,20 +178,28 @@ function UserPosts() {
         <div>
           <h1>Share your travel story here:</h1>
           <form onSubmit={createTravels}>
+            Title:
             <input
+              className="m-1 p-3 input-group input-group-lg"
+              placeholder="Travel title"
               onChange={updateStoryForm}
               name="title"
               value={storyForm.title}
-            />
+            /><br/>
+            Select Image:
+            <span className="input-group-text">
+              <input type="file" className="custom-file-input" id="inputGroupFile01"/>
+            </span> 
+            Content:
             <textarea
-              className="border-primary m"
+              className="m-1 p-5 input-group-text input-group input-group-lg"
+              placeholder="content of the story"
               onChange={updateStoryForm}
               name="content"
               value={storyForm.content}
-            />
-
+            /><br/>
             <button
-              className="rounded border-primary text-bg-primary p-3 m-4"
+              className="rounded border-primary text-bg-primary p-3 m-2"
               type="submit"
             >
               {" "}

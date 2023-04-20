@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    background-color: #111;
+    text-align: center;
+    justify-content: center;
+}
+ul, div.navbarLogo {
+    list-style-type: none;
+    background-color: #111;
+}
+div.navbarLogo {
+    float: right;
+    display: block;
+    padding: 14px ;
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover {
+    background-color: #3f3e3e;
+}

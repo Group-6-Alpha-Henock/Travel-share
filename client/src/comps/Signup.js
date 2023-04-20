@@ -135,29 +135,29 @@ export default function RegisterPage (){
     return(
         <div>
           <Navbar></Navbar>
-            <h1 className="loginHeadline">Registration</h1>
+            <h1 className="loginHeadline w-25 p-3">Registration</h1>
             <form className="register" onSubmit={register}>
-                <input className="mb-3"
+                <input className="mb-3 w-25 p-3"
                     type="text" 
                     placeholder="First Name"
                     value={fname}
-                    onChange={((e)=> setFname(e.target.value))}/>
-                <input className="mb-3"
+                    onChange={((e)=> setFname(e.target.value))}/><br/>
+                <input className="mb-3 w-25 p-3"
                     type="text" 
                     placeholder="Last Name"
                     value={lname}
-                    onChange={((e)=> setLname(e.target.value))}/>
-                <input className="mb-3"
+                    onChange={((e)=> setLname(e.target.value))}/><br/>
+                <input className="mb-3 w-25 p-3"
                     type="text" 
                     placeholder="Username"
                     value={email}
-                    onChange={((e)=> setEmail(e.target.value))}/>
-                <input className="mb-3"
+                    onChange={((e)=> setEmail(e.target.value))}/><br/>
+                <input className="mb-3 w-25 p-3"
                 type="password" 
                     placeholder="Password" 
                     value={password}
-                    onChange={((e)=> setPassword(e.target.value))}/>
-                <button className="d-grid">Signup</button>
+                    onChange={((e)=> setPassword(e.target.value))}/><br/>
+                <button className="btn btn-primary">Signup</button>
             </form>
         </div>
     );
